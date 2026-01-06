@@ -319,47 +319,52 @@ def plot_results(res):
     mdot = res["mdot"]
     mode = res["chem_mode"]
     geom = res["geometry"]
+    # すべてのプロットを1つのウィンドウ・サブプロットにまとめる
+    fig, axs = plt.subplots(3, 2, figsize=(12, 12))
+    fig.suptitle(
+        f"Nozzle Results (chem_mode={mode}, mdot={mdot:.6g} kg/s)", fontsize=16
+    )
 
     # 1) Geometry
-    plt.figure()
-    plt.plot(x, A)
-    plt.xlabel("x [m]")
-    plt.ylabel("Area A(x) [m^2]")
-    plt.title("Nozzle Area Profile")
-    plt.grid(True)
+    axs[0, 0].plot(x, A)
+    axs[0, 0].set_xlabel("x [m]")
+    axs[0, 0].set_ylabel("Area A(x) [m$^2$]")
+    axs[0, 0].set_title("Nozzle Area Profile")
+    axs[0, 0].grid(True)
 
     # 2) Mach
-    plt.figure()
-    plt.plot(x, M)
-    plt.axhline(1.0, linewidth=1.0)
-    plt.xlabel("x [m]")
-    plt.ylabel("Mach number [-]")
-    plt.title(f"Mach Number (chem_mode={mode}, mdot={mdot:.6g} kg/s)")
-    plt.grid(True)
+    axs[0, 1].plot(x, M)
+    axs[0, 1].axhline(1.0, linewidth=1.0, color="gray", linestyle="--")
+    axs[0, 1].set_xlabel("x [m]")
+    axs[0, 1].set_ylabel("Mach number [-]")
+    axs[0, 1].set_title("Mach Number")
+    axs[0, 1].grid(True)
 
     # 3) Temperature
-    plt.figure()
-    plt.plot(x, T)
-    plt.xlabel("x [m]")
-    plt.ylabel("T [K]")
-    plt.title("Static Temperature")
-    plt.grid(True)
+    axs[1, 0].plot(x, T)
+    axs[1, 0].set_xlabel("x [m]")
+    axs[1, 0].set_ylabel("T [K]")
+    axs[1, 0].set_title("Static Temperature")
+    axs[1, 0].grid(True)
 
     # 4) Pressure
-    plt.figure()
-    plt.plot(x, P)
-    plt.xlabel("x [m]")
-    plt.ylabel("P [Pa]")
-    plt.title("Static Pressure")
-    plt.grid(True)
+    axs[1, 1].plot(x, P)
+    axs[1, 1].set_xlabel("x [m]")
+    axs[1, 1].set_ylabel("P [Pa]")
+    axs[1, 1].set_title("Static Pressure")
+    axs[1, 1].grid(True)
 
     # 5) Density
-    plt.figure()
-    plt.plot(x, rho)
-    plt.xlabel("x [m]")
-    plt.ylabel(r"$\rho$ [kg/m$^3$]")
-    plt.title("Density")
-    plt.grid(True)
+    axs[2, 0].plot(x, rho)
+    axs[2, 0].set_xlabel("x [m]")
+    axs[2, 0].set_ylabel(r"$\rho$ [kg/m$^3$]")
+    axs[2, 0].set_title("Density")
+    axs[2, 0].grid(True)
+
+    # 空のサブプロット（右下）を非表示
+    axs[2, 1].axis("off")
+
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
     # Show summary text in console too
     print("=== Summary ===")
@@ -400,7 +405,7 @@ def main():
     A_t = 1.0e-4
     A_out = 5.0e-4
 
-    n_points = 300
+    n_points = 1000
     # -----------------------------------
 
     gas0 = ct.Solution("gri30.yaml")
