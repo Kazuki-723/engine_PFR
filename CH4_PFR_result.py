@@ -5,7 +5,7 @@ import pandas as pd
 # ============================
 # 1. CSV 読み込み
 # ============================
-df = pd.read_csv("pfr_noneq.csv")   # ← CSV 名を適宜変更
+df = pd.read_csv("pfr_two_stage_noneq.csv")   # ← CSV 名を適宜変更
 
 x = df["Distance (m)"]
 
@@ -80,7 +80,7 @@ if "Area (m2)" in columns:
 # ============================
 # 7. 主要化学種のモル分率
 # ============================
-species = ["CH4", "O2", "CO", "CO2", "H2O", "H2", "OH", "O", "AR", 
+species = ["CH4", "O2", "CO", "CO2", "H2O", "H2", "OH", "O", #"N2", 
            "NO", "NO2", "N2O"]  # 必要に応じて追加
 
 plt.figure(figsize=(10,6))
