@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("pfr_2d.csv")
+df = pd.read_csv("pfr_2d_diffusion_noneq.csv")
 
 x_vals = np.sort(df["x"].unique())
 y_vals = np.sort(df["y"].unique())
